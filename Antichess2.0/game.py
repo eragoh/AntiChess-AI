@@ -10,6 +10,7 @@ from king import King
 from knight import Knight
 
 class Game:
+    counter=0
     def __init__(self):
         self.screen=Window_object('Antichess','1000x600')
         self.canvas=Canvas_object(self.screen.screen,50,50,600,500)
@@ -86,6 +87,10 @@ class Game:
         a,b=piece.changePosition(x,y)
         self.canvas.canvas.move(piece.canvas_image,a,b)
         self.whitesTurn=not self.whitesTurn
+        Game.counter+=1
+    
+    def getCounter(self):
+        return Game.counter
 
     def move(self,event):
         x,y=event.x//60,event.y//60
@@ -95,6 +100,9 @@ class Game:
         if self.leftButtonPressed:
             self.leftButtonPressed=False
             square2=self.board.board[self.previousPosition[0]][self.previousPosition[1]]
+            if self.capturing and square==None:
+                square=self.board.board[x][3 if self.whitesTurn else 4]
+                self.board.board[x][3 if self.whitesTurn else 4]=None
             if self.capturing and (x,y) in square2.captureMoves:
                 self.canvas.canvas.delete(square.canvas_image)
                 if square.isWhite:
@@ -112,6 +120,10 @@ class Game:
             elif not self.capturing and (x,y) in square2.legalMoves:
                 self.moving(x,y,square2)
             square2.deleteCircles()
+            self.board.printBoard()
+            print(len(self.whitePieces))
+            print(len(self.blackPieces))
+            print()
         else:
             self.capturing=False
             if square!=None and square.isWhite==self.whitesTurn:

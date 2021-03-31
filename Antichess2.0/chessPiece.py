@@ -36,6 +36,8 @@ class ChessPiece:
         self.xx,self.yy=x*60+32,y*60+34
         if not self.alreadyMoved:
             self.alreadyMoved=True
+            if self.isPawn:
+                self.enpassant=self.game.getCounter() if b==2 else -1
         if self.isPawn:
             if self.isWhite and self.y==0:
                 self.game.pawnPromotion(self.x,self.y,'w')
