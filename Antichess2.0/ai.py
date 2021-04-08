@@ -31,6 +31,7 @@ class Node:
                         self.value = 10000 if color == 'w' else -10000
                 del attacked_piece
             piece.x, piece.y = move[0], move[1]
+            piece.alreadyMoved = True
         ChessPiece.captureMoves.clear()
         ChessPiece.legalMoves.clear()
         if depth > 0:
@@ -59,6 +60,10 @@ class Node:
 class AI:
     def __init__(self,game):
         self.game = game
+        for piece in game.whitePieces:
+            piece.noneCanvas()
+        for piece in game.blackPieces:
+            piece.noneCanvas()
         w, b = deepcopy(game.whitePieces), deepcopy(game.blackPieces)
         self.root = Node(w, b, 'w', None, None, game.counter, 3)
         #zawsze AI jest czarne

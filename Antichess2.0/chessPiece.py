@@ -65,3 +65,10 @@ class ChessPiece:
                 l[i][1]+=list[i][1]
     def addToCounter(self):
         self.game.counter += 1
+
+    def noneCanvas(self):
+        self.canvas_image = None
+        self.photo_image = None
+        self.canvas = None
+        self.game = None
+
