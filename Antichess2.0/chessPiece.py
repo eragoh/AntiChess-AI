@@ -37,7 +37,7 @@ class ChessPiece:
         if not self.alreadyMoved:
             self.alreadyMoved=True
             if self.isPawn:
-                self.enpassant=self.game.getCounter() if b==2 else -1
+                self.enpassant=self.game.counter if b==2 else -1
         if self.isPawn:
             if self.isWhite and self.y==0:
                 self.game.pawnPromotion(self.x,self.y,'w')
@@ -63,3 +63,5 @@ class ChessPiece:
                     break
                 l[i][0]+=list[i][0]
                 l[i][1]+=list[i][1]
+    def addToCounter(self):
+        self.game.counter += 1

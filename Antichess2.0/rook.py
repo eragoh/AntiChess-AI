@@ -5,7 +5,7 @@ class Rook(ChessPiece):
         super().__init__(coordinates,img_path,board,canvas,color,game)
 
 
-    def findCaptureMoves(self):
+    def findCaptureMoves(self, moveNumber = -1):
         self.captureMoves.clear()
         self.figureMoving(True,False,[[-1,0],[0,1],[1,0],[0,-1]])
 

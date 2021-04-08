@@ -6,7 +6,7 @@ class Pawn(ChessPiece):
         self.isPawn=True
         self.enpassant=-1
 
-    def findCaptureMoves(self):
+    def findCaptureMoves(self, moveNumber = -1):
         self.captureMoves.clear()
         sign=-1 if self.isWhite else 1
         if self.x>0:
@@ -20,10 +20,12 @@ class Pawn(ChessPiece):
                 ChessPiece.captureMoves.append(move)
                 self.captureMoves.append(move)
         if self.y==3.5+0.5*sign:
-            if self.x-1>=0 and self.board.board[self.x-1][self.y]!=None and self.board.board[self.x-1][self.y].isPawn and self.board.board[self.x-1][self.y].enpassant+1==self.game.getCounter():
+            if self.x-1>=0 and self.board.board[self.x-1][self.y]!=None and self.board.board[self.x-1][self.y].isPawn \
+                    and self.board.board[self.x-1][self.y].enpassant+1==(self.game.counter if moveNumber == -1 else moveNumber):
                 ChessPiece.captureMoves.append((self.x-1,self.y+sign))
                 self.captureMoves.append((self.x-1,self.y+sign))                  
-            if self.x+1<=7 and self.board.board[self.x+1][self.y]!=None and self.board.board[self.x+1][self.y].isPawn and self.board.board[self.x+1][self.y].enpassant+1==self.game.getCounter():
+            if self.x+1<=7 and self.board.board[self.x+1][self.y]!=None and self.board.board[self.x+1][self.y].isPawn \
+                    and self.board.board[self.x+1][self.y].enpassant+1==(self.game.counter if moveNumber == -1 else moveNumber):
                 ChessPiece.captureMoves.append((self.x+1,self.y+sign))
                 self.captureMoves.append((self.x+1,self.y+sign)) 
 

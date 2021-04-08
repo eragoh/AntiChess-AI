@@ -8,10 +8,12 @@ from rook import Rook
 from queen import Queen
 from king import King
 from knight import Knight
+from ai import AI
+
 
 class Game:
-    counter=0
     def __init__(self):
+        self.counter = 0
         self.screen=Window_object('Antichess','1000x600')
         self.canvas=Canvas_object(self.screen.screen,50,50,600,500)
         self.board=Board()
@@ -61,9 +63,12 @@ class Game:
         self.capturing=False
         self.previousPosition=(-1,-1)
 
+        self.ai = AI(self)
+        print(len(self.ai.root.children))
+        print(len(self.ai.root.children[0].children[0].children))
+
 
         self.screen.screen.mainloop()
-
 
     def addPiece(self,piece):
         if piece.isWhite:
@@ -87,10 +92,7 @@ class Game:
         a,b=piece.changePosition(x,y)
         self.canvas.canvas.move(piece.canvas_image,a,b)
         self.whitesTurn=not self.whitesTurn
-        Game.counter+=1
-    
-    def getCounter(self):
-        return Game.counter
+        self.counter+=1
 
     def move(self,event):
         x,y=event.x//60,event.y//60
@@ -128,6 +130,9 @@ class Game:
             self.capturing=False
             if square!=None and square.isWhite==self.whitesTurn:
                 square.findCaptureMoves()
+
+                # Ewentualnie programowanie dynamiczne, na początku sprawdzać już wszystkie ruchy zamiast po każdym kliknięciu
+
                 if not square.captureMoves:
                     ChessPiece.captureMoves.clear() 
                     if self.whitesTurn:
@@ -139,7 +144,7 @@ class Game:
                     if not ChessPiece.captureMoves:
                         square.findLegalMoves()
                         if not square.legalMoves:
-                            ChessPiece.legalMoves.clear() 
+                            ChessPiece.legalMoves.clear()
                             if self.whitesTurn:
                                 for p in self.whitePieces:
                                     p.findLegalMoves()

@@ -20,4 +20,4 @@ class Canvas_object:
                     white=False
                 y=size*j+1
                 color='white' if white else 'black'
-                self.canvas.create_rectangle(x,y,x+size+1,y+size+1,fill=color)              
+                self.canvas.create_rectangle(x,y,x+size+1,y+size+1,fill=color)

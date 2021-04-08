@@ -34,7 +34,7 @@ class Knight(ChessPiece):
         if x+1<=7 and y+2<=7:
             self.knightMoves(x+1,y+2,capturing)
     
-    def findCaptureMoves(self):
+    def findCaptureMoves(self, moveNumber = -1):
         self.captureMoves.clear()
         self.findKnightMoves(True)
 
