@@ -4,6 +4,7 @@ from board import Board
 from tkinter import Button, Entry
 
 import antichessAI
+import time
 
 from chessPiece import ChessPiece
 from pawn import Pawn
@@ -162,8 +163,21 @@ class Game():
         self.whitesTurn=not self.whitesTurn
         self.counter+=1
         xx,yy=piece.x,piece.y
+        if piece.type == "pawn":
+            if piece.isWhite and y == 0:
+                self.canvas.deleteImage(x, y)
+                self.canvas.deleteImage(xx, yy)
+                self.whitePieces.remove(piece)
+                self.addPiece(Queen(xx, yy, 'w', self.board.board))
+            if not piece.isWhite and y == 7:
+                self.canvas.deleteImage(x, y)
+                self.canvas.deleteImage(xx, yy)
+                self.blackPieces.remove(piece)
+                self.addPiece(Queen(xx, yy, 'b', self.board.board))
+            piece = self.board.board[xx][yy]
         a,b=piece.changePosition(x,y,self.counter)
         self.canvas.move((xx,yy),(piece.x,piece.y),(a,b))
+        self.canvas.canvas.update()
 
     def AIMove(self):
         message=self.board.fen(f'{"w" if self.whitesTurn else "b"} - - 0 0')
