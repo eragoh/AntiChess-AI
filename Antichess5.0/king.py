@@ -1,8 +1,8 @@
 from chessPiece import ChessPiece
 
 class King(ChessPiece):
-    def __init__(self,coordinates,img_path,board,canvas,color,game):
-        super().__init__(coordinates,img_path,board,canvas,color,game)
+    def __init__(self,x,y,color,board):
+        super().__init__(x,y,color,board,'king')
 
 
     def findCaptureMoves(self, moveNumber = -1):

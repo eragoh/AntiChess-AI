@@ -1,12 +1,12 @@
 from chessPiece import ChessPiece
 
 class Knight(ChessPiece):
-    def __init__(self,coordinates,img_path,board,canvas,color,game):
-        super().__init__(coordinates,img_path,board,canvas,color,game)
+    def __init__(self,x,y,color,board):
+        super().__init__(x,y,color,board,'knight')
 
 
     def knightMoves(self,x,y,capturing):
-        piece=self.board.board[x][y]
+        piece=self.board[x][y]
         if not capturing and piece==None:
             self.legalMoves.append((x,y))
             ChessPiece.legalMoves.append((x,y))
