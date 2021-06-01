@@ -32,9 +32,10 @@ class Pawn(ChessPiece):
         self.legalMoves.clear()
         sign=-1 if self.isWhite else 1
         d=0 if self.isWhite else 7
+        d2= 6 if self.isWhite else 1
         if self.y!=d and self.board[self.x][self.y+sign]==None:
             self.legalMoves.append((self.x,self.y+sign))
             ChessPiece.legalMoves.append((self.x,self.y+sign))
-        if self.alreadyMoved==False and len(self.legalMoves)>0 and self.board[self.x][self.y+sign*2]==None:
+        if self.alreadyMoved==False and len(self.legalMoves)>0 and self.board[self.x][self.y+sign*2]==None and self.y == d2:
             self.legalMoves.append((self.x,self.y+sign*2))
             ChessPiece.legalMoves.append((self.x,self.y+sign*2))

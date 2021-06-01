@@ -1,10 +1,9 @@
 from window_object import Window_object
 from canvas_object import Canvas_object
 from board import Board
-from tkinter import Button, Entry
+from tkinter import Button, Entry, messagebox
 
 import antichessAI
-import time
 
 from chessPiece import ChessPiece
 from pawn import Pawn
@@ -16,7 +15,7 @@ from king import King
 
 class Game():
     def __init__(self):
-        self.screen=Window_object('Antichess','1000x600')
+        self.screen=Window_object('Antichess','800x600')
         self.canvas=Canvas_object(self.screen.screen,50,50,600,500)
         self.board=Board()
         self.whitePieces=[]
@@ -112,12 +111,13 @@ class Game():
                 if piece.isWhite:
                     self.whitePieces.remove(piece)
                     if not self.whitePieces:
-                        print('White won the game')
+                        messagebox.showinfo("Game over!", "White won the game")
                         self.screen.screen.quit()
                 else:
                     self.blackPieces.remove(piece)
                     if not self.blackPieces:
                         print('Black won the game')
+                        messagebox.showinfo("Game over!", "Black won the game")
                         self.screen.screen.quit()
                 del piece
                 self.moving(x,y,piece2)
@@ -148,6 +148,7 @@ class Game():
                                 p.findLegalMoves()
                             if not ChessPiece.legalMoves:
                                 print(f'{"white" if self.whitesTurn else "black"} won the game')
+                                msb = messagebox.showinfo("Game over!", f'{"white" if self.whitesTurn else "black"} won the game')
                                 self.screen.screen.quit()
                         else:
                             self.leftButtonPressed=True
@@ -198,11 +199,14 @@ class Game():
                 self.whitePieces.remove(piece)
                 if not self.whitePieces:
                     print('White won the game')
+                    msb = messagebox.showinfo("Game over!", "White won the game!")
+
                     self.screen.screen.quit()
             else:
                 self.blackPieces.remove(piece)
                 if not self.blackPieces:
                     print('Black won the game')
+                    msb = messagebox.showinfo("Game over!", "Black won the game!")
                     self.screen.screen.quit()
             del piece
         
