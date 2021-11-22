@@ -1,2 +1,2 @@
 # AntiChess-AI
-AntiChess AI project for SI Project on University
+AntiChess AI project for University Project
